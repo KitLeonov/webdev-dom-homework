@@ -83,6 +83,7 @@
 
 
 
+
   const comments = [
     {
       name: "Глеб Фокин",
@@ -105,7 +106,7 @@
       return `<li class="comment">
         <div class="comment-header">
           <div>${comment.name}</div>
-          <div>${fullDate}</div>
+          <div>${comment.date}</div>
         </div>
         <div class="comment-body">
           <div class="comment-text">
@@ -123,6 +124,14 @@
       .join("");
 
     listElement.innerHTML = commentsHtml;
+
+    const commentsText = document.querySelectorAll(".comment-text"); //обработчик клика по тексту коммента
+    for (const commentText of commentsText) {
+      commentText.addEventListener('click', () => {
+        console.log("1");
+      });
+      // renderComments();
+    }
 
 
     const likesElement = document.querySelectorAll('.like-button');
@@ -145,10 +154,10 @@
       }
       renderComments()
     }
-
   };
 
   renderComments();
+
 
 
   buttonElement.addEventListener("click", () => {
@@ -169,12 +178,16 @@
       likes: 0,
     });
 
+
+
+
+
+
     renderComments();
     nameInputElement.value = "";
     commentInputElement.value = "";
 
   });
-  console.log("It works!");
 </script>
 
 </html>
