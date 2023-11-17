@@ -121,34 +121,34 @@
 
     listElement.innerHTML = commentsHtml;
 
-    const commentsText = document.querySelectorAll(".comment-text"); //обработчик клика по тексту коммента
-    for (const commentText of commentsText) {
-      commentText.addEventListener('click', () => {
-        console.log("1");
-      });
-      // renderComments();
-    }
+    // const commentsText = document.querySelectorAll(".comment-text"); //обработчик клика по тексту коммента
+    // for (const commentText of commentsText) {
+    //   commentText.addEventListener('click', () => {
+    //     console.log("1");
+    //   });
+    // renderComments();
+  // }
 
-    const likesElement = document.querySelectorAll('.like-button');
-    likesElement.forEach((el, index) => {
+  const likesElement = document.querySelectorAll('.like-button');
+  likesElement.forEach((el, index) => {
 
-      el.addEventListener('click', () => {
-        chekLike(index);
-      })
+    el.addEventListener('click', () => {
+      chekLike(index);
     })
+  })
 
-    const chekLike = (index) => {
-      if (!comments[index].isLiked) {
-        likesElement[index].classList.add('-active-like');
-        comments[index].likes++
-        comments[index].isLiked = true
-      } else {
-        likesElement[index].classList.remove('-active-like');
-        comments[index].likes--
-        comments[index].isLiked = false
-      }
-      renderComments()
+  const chekLike = (index) => {
+    if (!comments[index].isLiked) {
+      likesElement[index].classList.add('-active-like');
+      comments[index].likes++
+      comments[index].isLiked = true
+    } else {
+      likesElement[index].classList.remove('-active-like');
+      comments[index].likes--
+      comments[index].isLiked = false
     }
+    renderComments()
+  }
   };
 
   renderComments();
