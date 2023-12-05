@@ -124,9 +124,9 @@
     // renderComments();
     const commentsText = document.querySelectorAll(".comment"); //обработчик клика по тексту коммента
     commentsText.forEach((el, index) => {
-      el.addEventListener('click', () => {
-        console.log(el.textContent);
-        console.log(index);
+      el.addEventListener('click', (event) => {
+        commentInputElement.value = ">" + comments[index].text + " " + comments[index].name
+
       })
     })
     // commentText.addEventListener('click', (event) => {
@@ -153,6 +153,7 @@
     likesElement.forEach((el, index) => {
 
       el.addEventListener('click', () => {
+        event.stopPropagation();
         chekLike(index);
       })
     })
@@ -184,8 +185,16 @@
     }
 
     comments.push({
-      name: nameInputElement.value,
-      text: commentInputElement.value,
+      name: nameInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+      text: commentInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
       date: getFormateDate(new Date),
       isLiked: false,
       likes: 0,
