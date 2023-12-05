@@ -122,27 +122,32 @@
     listElement.innerHTML = commentsHtml;
 
     // renderComments();
-    const commentsText = document.querySelectorAll(".comment-text"); //обработчик клика по тексту коммента
-    for (const commentText of commentsText) {
-      commentText.addEventListener('click', (event) => {
+    const commentsText = document.querySelectorAll(".comment"); //обработчик клика по тексту коммента
+    commentsText.forEach((el, index) => {
+      el.addEventListener('click', () => {
+        console.log(el.textContent);
+        console.log(index);
+      })
+    })
+    // commentText.addEventListener('click', (event) => {
 
-        let name = event.target.getElementsByClassName('comment-header')[0].getElementsByTagName('div')[0].innerText
-        let textContent = event.target.getElementsByClassName('comment-body')[0].getElementsByClassName('comment-text')[0].innerText
+    // let name = event.target.getElementsByClassName('comment-header')[0].getElementsByTagName('div')[0].innerText
+    // let textContent = event.target.getElementsByClassName('comment-body')[0].getElementsByClassName('comment-text')[0].innerText
 
-        nameInputElement.value = name
-        commentInputElement.value = textContent
+    //   nameInputElement.value = name
+    //   commentInputElement.value = textContent
 
-      });
-      // commentText.addEventListener('click', function() {
+    // });
+    // commentText.addEventListener('click', function() {
 
-      //   let name = this.getElementsByClassName('comment-header')[0].getElementsByTagName('div')[0].innerText
-      //   let textContent = this.getElementsByClassName('comment-body')[0].getElementsByClassName('comment-text')[0].innerText
+    //   let name = this.getElementsByClassName('comment-header')[0].getElementsByTagName('div')[0].innerText
+    //   let textContent = this.getElementsByClassName('comment-body')[0].getElementsByClassName('comment-text')[0].innerText
 
-      //   nameInputElement.value = name
-      //   commentInputElement.value = textContent
+    //   nameInputElement.value = name
+    //   commentInputElement.value = textContent
 
-      // });
-    }
+    // });
+    //}
 
     const likesElement = document.querySelectorAll('.like-button');
     likesElement.forEach((el, index) => {
