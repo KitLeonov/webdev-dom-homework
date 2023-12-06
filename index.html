@@ -63,25 +63,22 @@
 
 <script>
   "use strict";
-  // Код писать здесь
-  // создадим массив, где будем хранить названия месяцев на русском
-  const months = ["01", "02", "03", "04", "05", "06",
-    "07", "08", "09", "10", "11", "12"];
-
-
-  let myDate = new Date(); // здесь мы получаем текущую дату
-  let fullDate = myDate.getDate() + // getDate возвращает число
-    "." + months[myDate.getMonth()] + // getMonth возвращает номер месяца, который мы можем использовать в качестве индекса для массива months
-    "." + myDate.getFullYear().toString().padStart(2, '0') + " " + myDate.getHours() + ":" + myDate.getMinutes(); // getDay возвращает номер дня недели, который мы используем в качестве индекса для массива days
-  new Date().toLocaleDateString('en', { year: '2-digit' });
-  console.log(fullDate); // Сегодня: 1 Февраль 2023, Среда
+  function getFormateDate(myDate) {
+    const months = ["01", "02", "03", "04", "05", "06",
+      "07", "08", "09", "10", "11", "12"];
+    let fullDate = myDate.getDate() +
+      "." + months[myDate.getMonth()] +
+      "." + myDate.getFullYear().toString().padStart(2, '0') + " "
+      + myDate.getHours() + ":" + myDate.getMinutes();
+    new Date().toLocaleDateString('en', { year: '2-digit' });
+    console.log(fullDate);
+    return fullDate
+  }
 
   const buttonElement = document.getElementById("add-button");
   const listElement = document.getElementById("list-comment");
   const nameInputElement = document.getElementById("name-input");
   const commentInputElement = document.getElementById("comment-input");
-
-
 
   const comments = [
     {
@@ -124,11 +121,39 @@
 
     listElement.innerHTML = commentsHtml;
 
+    // renderComments();
+    const commentsText = document.querySelectorAll(".comment"); //обработчик клика по тексту коммента
+    commentsText.forEach((el, index) => {
+      el.addEventListener('click', (event) => {
+        commentInputElement.value = ">" + comments[index].text + " " + comments[index].name
+
+      })
+    })
+    // commentText.addEventListener('click', (event) => {
+
+    // let name = event.target.getElementsByClassName('comment-header')[0].getElementsByTagName('div')[0].innerText
+    // let textContent = event.target.getElementsByClassName('comment-body')[0].getElementsByClassName('comment-text')[0].innerText
+
+    //   nameInputElement.value = name
+    //   commentInputElement.value = textContent
+
+    // });
+    // commentText.addEventListener('click', function() {
+
+    //   let name = this.getElementsByClassName('comment-header')[0].getElementsByTagName('div')[0].innerText
+    //   let textContent = this.getElementsByClassName('comment-body')[0].getElementsByClassName('comment-text')[0].innerText
+
+    //   nameInputElement.value = name
+    //   commentInputElement.value = textContent
+
+    // });
+    //}
 
     const likesElement = document.querySelectorAll('.like-button');
     likesElement.forEach((el, index) => {
 
       el.addEventListener('click', () => {
+        event.stopPropagation();
         chekLike(index);
       })
     })
@@ -145,11 +170,9 @@
       }
       renderComments()
     }
-
   };
 
   renderComments();
-
 
   buttonElement.addEventListener("click", () => {
     commentInputElement.classList.remove("error");
@@ -162,9 +185,17 @@
     }
 
     comments.push({
-      name: nameInputElement.value,
-      text: commentInputElement.value,
-      date: fullDate,
+      name: nameInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+      text: commentInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;"),
+      date: getFormateDate(new Date),
       isLiked: false,
       likes: 0,
     });
@@ -174,7 +205,6 @@
     commentInputElement.value = "";
 
   });
-  console.log("It works!");
 </script>
 
 </html>
